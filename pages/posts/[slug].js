@@ -11,6 +11,8 @@ import { getAllPostsWithSlug, getPostAndMorePosts } from 'lib/graphcms'
 import PostTitle from 'components/post-title'
 import Head from 'next/head'
 import { CMS_NAME } from 'lib/constants'
+import CommentsForm from 'components/CommentsForm';
+import Comments from 'components/Comments';
 
 export default function Post({ post, morePosts, preview }) {
   const router = useRouter()
@@ -41,6 +43,8 @@ export default function Post({ post, morePosts, preview }) {
                 author={post.author}
               />
               <PostBody content={post.content} />
+              <CommentsForm slug={post.slug} />
+              <Comments slug={post.slug} />
             </article>
             <SectionSeparator />
             {morePosts.length > 0 && <MoreStories posts={morePosts} />}
@@ -48,7 +52,7 @@ export default function Post({ post, morePosts, preview }) {
         )}
       </Container>
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps({ params, preview = false }) {
